@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback, useEffect, useImperativeHandle } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useImperativeHandle, ReactElement } from 'react';
 import "jb-infinite-scroll";
-import { useEvent } from "../../../common/hooks/use-event";
+import { useEvent } from "../../../common/hooks/use-event.js";
 //TODO: replace it after you migrate web-component to typescript
 type JBInfinityScrollWebComponent = any;
 declare global {
@@ -80,26 +80,26 @@ const JBInfiniteScroll = React.forwardRef((props: Props, ref) => {
 
   }, [props.disableCaptureScroll]);
   useEffect(() => {
-    if (props.stateChangeWaitingBehaviour && element.current) {
-      element.current?.setAttribute('state-change-waiting-behaviour', props.stateChangeWaitingBehaviour);
+    if (props.stateChangeWaitingBehavior && element.current) {
+      element.current?.setAttribute('state-change-waiting-behavior', props.stateChangeWaitingBehavior);
     }
-  }, [props.stateChangeWaitingBehaviour]);
+  }, [props.stateChangeWaitingBehavior]);
   return (
     <jb-infinite-scroll ref={element}>{props.children}</jb-infinite-scroll>
   );
 });
 //TODO: fix types with real one
 type Props = {
-  stateChangeWaitingBehaviour: () => {},
+  stateChangeWaitingBehavior: () => void,
   disableCaptureScroll: boolean,
   isListEmpty: boolean,
   isLoading: boolean,
-  children: any,
+  children: ReactElement,
   isListEnded:boolean,
-  onScrollEnd:(e:any)=>{}
+  onScrollEnd:(e:any)=>void
 
 }
 
 JBInfiniteScroll.displayName = "JBInfiniteScroll";
 
-export default JBInfiniteScroll;
+export {JBInfiniteScroll};
